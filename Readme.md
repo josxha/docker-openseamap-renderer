@@ -35,11 +35,6 @@ docker run -v /data/osm/seamap:/home/renderaccount/overpass_db  -v /data/osm:/da
 Also have a look at:
 https://github.com/KastB/openseamap_kap	
 
-# Dockerfile for an OpenStreetMap Tile Server
-
-This Dockerfile creates an OSM tile server based on the instructions from https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/.
-Originally from https://github.com/rooch84/docker-osm-tile-server.git
-
 ## Building
 
 ```

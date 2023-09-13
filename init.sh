@@ -6,7 +6,7 @@ EXEC_DIR="/home/renderaccount/opt/overpass/"
 /home/renderaccount/opt/overpass/bin/init_osm3s.sh $DATA $DB_DIR $EXEC_DIR --meta
 echo "bk: init done"
 mkdir -p $DB_DIR
-chmod 777 -R $DB_DIR 
+chmod 777 -R $DB_DIR
 /home/renderaccount/opt/overpass/bin/dispatcher --osm-base --meta &
 sleep 1
 
@@ -14,7 +14,7 @@ cd /home/renderaccount/src/renderer/work/
 
 mkdir -p tmp cache tiles
 echo "getworld"
-echo "[timeout:3600];(rel['seamark:type'];>;way['seamark:type'];>;node['seamark:type'];);out meta;" | /home/renderaccount/opt/overpass/bin/osm3s_query --db-dir=/home/renderaccount/overpass_db/ > next.osm 2> errors.txt
+echo "[timeout:25];( way ['seamark:type'] (47.4606,8.8330,47.8298,9.7751);relation ['seamark:type'] (47.4606,8.8330,47.8298,9.7751);node ['seamark:type'] (47.4606,8.8330,47.8298,9.7751););out meta;" | /home/renderaccount/opt/overpass/bin/osm3s_query --db-dir=/home/renderaccount/overpass_db/ > next.osm 2> errors.txt
 echo "getworld - done"
 cat errors.txt
 
@@ -37,7 +37,7 @@ for file in $(ls tmp | grep "\.osm"); do
 	../searender/searender ../searender/symbols/symbols.defs $z >tmp/$tx-$ty-$z.svg <tmp/$file 2> /dev/zero
 	java -jar ../jtile/jtile.jar tmp/ tiles/ $z $tx $ty
 	echo "$(date) rendering $z $tx $ty"
-  rm tmp/$file  
+  rm tmp/$file
 done
 echo "tilegen - done"
 

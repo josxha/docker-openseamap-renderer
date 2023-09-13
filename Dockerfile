@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 # Set user
 ARG OSM_USER=renderaccount
@@ -10,8 +10,8 @@ RUN apt-get update
 RUN apt-get -y install locales
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get -y install ant \
@@ -62,14 +62,14 @@ RUN cd ~/src && \
 
 USER root
 RUN mkdir -p /home/renderaccount/overpass_db/ && cd /home/renderaccount/overpass_db/ && \
-	wget http://dev.overpass-api.de/releases/osm-3s_v0.7.56.7.tar.gz && \
+	wget https://dev.overpass-api.de/releases/osm-3s_v0.7.56.7.tar.gz && \
 	tar -zxvf osm-3s_v*.tar.gz && \
 	cd osm-3s_v* && \
 	./configure CXXFLAGS="-O2" --prefix=$EXEC_DIR && \
 	make install
 
- 
-COPY scripts/init_seamap.sh /bin/init.sh
+
+COPY init.sh /bin/init.sh
 
 RUN chmod a+x /bin/init.sh
 CMD /bin/init.sh
